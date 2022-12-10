@@ -1,0 +1,16 @@
+All the commands for Section-1
+
+1. Building a docker image based on ubuntu for running curl commands:
+	docker pull ubuntu:20.04
+	docker run -it --name ubuntu ubuntu:20.04 bash
+	apt-get update && apt-get install curl
+
+2. Publishing this docker image to Docker Hub:
+	docker commit ubuntu maryamgoli/curl-ubuntu:1.0
+	docker push maryamgoli/curl-ubuntu:1.0
+
+3. Testing docker image:
+	docker pull maryamgoli/curl-ubuntu:1.0
+	docker container create -it --name curl-ubuntu maryamgoli/curl-ubuntu:1.0
+	docker container start --attach -i curl-ubuntu
+	curl google.com
