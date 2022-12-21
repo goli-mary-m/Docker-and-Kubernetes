@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: flaskserver
+  name: flaskserver
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flaskserver
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: flaskserver
+    spec:
+      containers:
+        - image: maryamgoli/flaskserver-k8s:1.0
+          imagePullPolicy: Always
+          name: flaskserver
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: flaskserver-configmap
+                  key: PORT
+            - name: API_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: flaskserver-configmap
+                  key: API_KEY     
+            - name: CRYPTOCURRENCY_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: flaskserver-configmap
+                  key: CRYPTOCURRENCY_NAME  
+            - name: EXPIRATION_TIME_MINUTE
+              valueFrom:
+                configMapKeyRef:
+                  name: flaskserver-configmap
+                  key: EXPIRATION_TIME_MINUTE  
+          resources: {}
+status: {}
